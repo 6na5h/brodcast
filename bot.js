@@ -163,7 +163,6 @@ client.on("message", async message => {
             معلومات عن السيرفر : ${prefix}server
             برودكاست للأونلاين فقط : ${prefix}bco
             يعرض لك عدد المتبندين من سيرفرك : ${prefix}banned
-            رابط سيرفر الدعم الفني : https://discord.gg/YEXcDXt 
             **`);
             message.channel.sendEmbed(help); // رابط السيرفر يعود الى سيرفر CODES .
     }
@@ -173,4 +172,4 @@ client.on("message", async message => {
 // CODES - COPYRIGHT
 
 
-client.login("NjMyMDE4NjQ0ODM4MTIxNDcy.XZ_XMA.5HYwMgC2aWbMppGjlCMzdnhGzD8");
+client.login("NjMyMDE4NjQ0ODM4MTIxNDcy.XZ_ZDA.ua24_8bSYAmbQw6zs6MIvlvzypI");
