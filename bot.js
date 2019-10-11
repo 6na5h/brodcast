@@ -1,94 +1,35 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const prefix = "$";
+client.on('ready', () => {
+  console.log(`Hixxx online`);
 
-
-
-client.on("message", async message => {
-    var command = message.content.split(" ")[0];
-    command = command.slice(prefix.length);
-        if(!message.channel.guild) return;
-            var args = message.content.split(" ").slice(1).join(" ");
-            if(command == "bc") {
-                if(!message.member.hasPermission("ADMINISTRATOR")) {
-                    return message.channel.send("**للأسف لا تمتلك صلاحية `ADMINISTRATOR`**");
-                }
-                    if(!args) {
-                        return message.reply("**يجب عليك كتابة كلمة او جملة لإرسال البرودكاست**");
-                    }
-                        message.channel.send(`**هل أنت متأكد من إرسالك البرودكاست؟\nمحتوى البرودكاست: \`${args}\`**`).then(m => {
-                            m.react("✅")
-                            .then(() => m.react("❌"));
-
-                            let yesFilter = (reaction, user) => reaction.emoji.name == "✅" && user.id == message.author.id;
-                            let noFiler = (reaction, user) => reaction.emoji.name == "❌" && user.id == message.author.id;
-
-                            let yes = m.createReactionCollector(yesFilter);
-                            let no = m.createReactionCollector(noFiler);
-
-                            yes.on("collect", v => {
-                                m.delete();
-                                    message.channel.send(`:ballot_box_with_check: | Done ... The Broadcast Message Has Been Sent For ${message.guild.memberCount} Members`).then(msg => msg.delete(5000));
-                                        message.guild.members.forEach(member => {
-                                            let bc = new Discord.RichEmbed()
-                                            .setColor("RANDOM")
-                                            .setThumbnail(message.author.avatarURL)
-                                            .setTitle("Broadcast")
-                                            .addField("Server", message.guild.name)
-                                            .addField("Sender", message.author.username)
-                                            .addField("Message", args);
-
-                                            member.sendEmbed(bc);
-                                        });
-                        });
-                        no.on("collect", v => {
-                            m.delete();
-                            message.channel.send("**Broadcast Canceled.**").then(msg => msg.delete(3000));
-                        });
-                            
-                        });
-            }
-            if(command == "bco") {
-                if(!message.member.hasPermission("ADMINISTRATOR")) {
-                    return message.channel.send("**للأسف لا تمتلك صلاحية `ADMINISTRATOR`**");
-                }
-                    if(!args) {
-                        return message.reply("**يجب عليك كتابة كلمة او جملة لإرسال البرودكاست**");
-                    }
-                        message.channel.send(`**هل أنت متأكد من إرسالك البرودكاست؟\nمحتوى البرودكاست: \`${args}\`**`).then(m => {
-                            m.react("✅")
-                            .then(() => m.react("❌"));
-
-                            let yesFilter = (reaction, user) => reaction.emoji.name == "✅" && user.id == message.author.id;
-                            let noFiler = (reaction, user) => reaction.emoji.name == "❌" && user.id == message.author.id;
-
-                            let yes = m.createReactionCollector(yesFilter);
-                            let no = m.createReactionCollector(noFiler);
-
-                            yes.on("collect", v => {
-                                m.delete();
-                                    message.channel.send(`:ballot_box_with_check: | Done ... The Broadcast Message Has Been Sent For ${message.guild.members.filter(r => r.presence.status !== "offline").size} Members`).then(msg => msg.delete(5000));
-                                        message.guild.members.filter(r => r.presence.status !== "offline").forEach(member => {
-                                            let bco = new Discord.RichEmbed()
-                                            .setColor("RANDOM")
-                                            .setThumbnail(message.author.avatarURL)
-                                            .setTitle("Broadcast")
-                                            .addField("Server", message.guild.name)
-                                            .addField("Sender", message.author.username)
-                                            .addField("Message", args);
-
-                                            member.sendEmbed(bco);
-                                        });
-                        });
-                        no.on("collect", v => {
-                            m.delete();
-                            message.channel.send("**Broadcast Canceled.**").then(msg => msg.delete(3000));
-                        });
-                            
-                        });
-            }
+});
+//Hixx
+client.on('message', message => {
+if (message.content.split(' ')[0] == '-m')
+ message.guild.members.forEach( member => {
+         if (!message.member.hasPermission("CONNECT"))  return;
+member.send( `${member} ! ` + "**" + message.guild.name + " : ** " + message.content.substr(3));
+                                                            message.delete();
+});
 });
 
-
-
+//جميع الحقوق محفوظه لهيكس وخبز
+client.on("message", message => {
+    var prefix = "-";
+ 
+            var args = message.content.substring(prefix.length).split(" ");
+            if (message.content.startsWith(prefix + "m")) {
+                         if (!message.member.hasPermission("CONNECT"))  return;
+                            let embed4 = new Discord.RichEmbed()
+             .setDescription("**:white_check_mark: | جاري ارسال البرودكاست**")
+           .addField("مرسل البرودكاست" , message.author)
+          .addField("نص البرودكاست" ,args.join("  "))
+                            .addField("عدد الاعضاء المرسل لهم :busts_in_silhouette:" ,` **[${message.guild.memberCount}]**`,true)
+                                                            .setColor("#008000")
+                                message.channel.sendEmbed(embed4);
+                                                      message.delete();
+                            
+                          }
+});
 client.login("NjMyMDE4NjQ0ODM4MTIxNDcy.XZ_ZDA.ua24_8bSYAmbQw6zs6MIvlvzypI");
